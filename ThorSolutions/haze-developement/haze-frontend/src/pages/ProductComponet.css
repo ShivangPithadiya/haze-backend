@@ -1,0 +1,64 @@
+.wrapper_header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+}
+.products_col1 {
+    width: 40%;
+    position: relative;
+	box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.1);
+
+}
+.products_col2 {
+    width: 60%;
+    position: relative;
+}
+.left_wrapper, .sider_baar {
+    padding-top: 4%;
+}
+
+.left_wrapper {
+    width: 82%;
+    padding-left: 17px;
+}
+
+
+.products_wrapper_row {
+  border: 1px solid var(--color-gainsboro);
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  padding: 0px;
+}
+
+.products_colour_section {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 74%;
+}
+.product_wrapper_text p{
+width: 182px;
+height: 24px;
+top: 618px;
+left: 34px;
+font-family: Poppins;
+font-size: 16px;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: 0em;
+text-align: left;
+
+}
+.product_wrapper_text input{
+width: 443px;
+height: 30px;
+top: 658px;
+left: 32px;
+border-radius: 5px;
+color: #737373;
+border: 1px solid  #737373;
+padding: 0px 0px 0px 10px;
+
+}

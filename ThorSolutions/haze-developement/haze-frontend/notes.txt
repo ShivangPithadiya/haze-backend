@@ -1,0 +1,160 @@
+{
+  "ThemeType": {
+    "ThemeSelect": "Dark"
+  },
+  "CustomizerTitle": {
+    "bgColor": "#ffffff",
+    "ftColor": "#333333",
+    "font": "Arial",
+    "fontSize": "16px",
+    "fontSizeMobile": "14px",
+    "ftColorMobile": "#2D2D2D",
+    "dividerColor": "#2D2D2D",
+    "dividerThickness": "1px"
+  },
+  "LayersPanel": {
+    "LayerPanelPos": "left",
+    "LaPnbgColor": "#ffffff",
+    "LaPnbrdColor": "#cccccc",
+    "borderThickness": "1px",
+    "errorClr": "#ff0000"
+  },
+  "LayersList": {
+    "LayerFtClr": "#000000",
+    "LayerFntSize": "14px",
+    "LayerFntFmly": "Roboto, sans-serif",
+    "LayerDscFntClr": "#666666",
+    "LayerDscFntSize": "12px",
+    "LayerDscFntFmly": "Roboto, sans-serif",
+    "LayerDivClr": "#cccccc",
+    "LayerDivThick": "1px"
+  },
+  "LayersSettings": {
+    "LayerSetBrdClr": "#cccccc",
+    "LayerSetSelBrdClr": "#009688",
+    "LayerSetBrdThick": "1px",
+    "LayerSetSelBrdThick": "2px",
+    "LayerSetFtClr": "#000000",
+    "LayerSetFtSize": "14px",
+    "LayerSetFtFmly": "Roboto, sans-serif",
+    "LayerSetPopUpBkgClr": "#ffffff",
+    "LayerSetPopUpBkgRound": "5px",
+    "LayerSetDescFtClr": "#666666",
+    "LayerSetDescFtSize": "12px",
+    "LayerSetDescFtFmly": "Roboto, sans-serif"
+  },
+  "ThumbnailButtonList": {
+    "ThumbnailRounding": "5px",
+    "ThumbnailColoumn": "3",
+    "ThumbnailWidth": "100px",
+    "ThumbnailHeight": "100px",
+    "ThumbnailVerticalMargin": "5px",
+    "ThumbnailRoundMob": "5px",
+    "ThumbnailWidthMob": "80px",
+    "ThumbnailHeightMob": "80px",
+    "ThumbnailMargintMob": "5px"
+  },
+  "InputTextDropDown": {
+    "InputTxtBgClr": "#ffffff",
+    "InputTxtHeight": "30px",
+    "InputTxtRoundings": "5px",
+    "InputTxtBrdClr": "#cccccc",
+    "InputTxtFontFmly": "Arial, sans-serif",
+    "InputTextFontClr": "#333333",
+    "InputTextFontSize": "14px",
+    "InputTextDrpDownMenuBgClr": "#ffffff",
+    "InputTextDrpDownHovOpClr": "#f0f0f0",
+    "InputTextDrpDownSelcOpClr": "#cccccc",
+    "InputTextDrpDownMenuFtClr": "#333333"
+  },
+  "FileUpload": {
+    "FileUploadBgClr": "#ffffff",
+    "FileUploadBrdClr": "#cccccc",
+    "FileUploadRound": "5px",
+    "FileUploadFtClr": "#333333",
+    "FileUploadLinkClr": "#007bff",
+    "FileUploadFontSize": "14px",
+    "FileUploadImgRound": "5px",
+    "FileUploadRemoveIptBgClr": "#ffffff",
+    "FileUploadRemoveIptHovBgClr": "#f0f0f0",
+    "FileUploadRemoveIptIconBgClr": "#333333"
+  },
+  "PrintReady": {
+    "PrintReadyEditionClr": "#ff0000",
+    "PrintReadyEditionIcClr": "#ffffff",
+    "PrintReadyEditionDPIIndTxtClr": "#333333",
+    "LowQualityTextClr": "#ff0000",
+    "LowQualityMsgBkgClr": "#ffffcc",
+    "LowQualityMsgTextClr": "#333333",
+    "HighQualClr": "#008000"
+  },
+  "Customizer": {
+    "LoadingIconClr": "#009688",
+    "BkgClr": "#f0f0f0"
+  },
+  "StepTitle": {
+    "BkgColor": "#f0f0f0",
+    "SwitchStepsArrow": "#009688"
+  },
+  "SummaryTitle": {
+    "FontFamily": "Arial, sans-serif",
+    "FontColor": "#333333",
+    "FontSize": "18px"
+  },
+  "AddToCart": {
+    "BorderClr": "#cccccc",
+    "BorderThickness": "1px",
+    "Rounding": "5px",
+    "FontFamily": "Arial, sans-serif",
+    "FontColor": "#ffffff",
+    "BackgroundClr": "#007bff",
+    "HoverBkgColor": "#0056b3",
+    "FontSize": "16px"
+  },
+  "ConfirmBtn": {
+    "FontClr": "#ffffff",
+    "BackgroundClr": "#28a745"
+  },
+  "Price": {
+    "PricePosition": "right",
+    "PriceFont": "Arial, sans-serif",
+    "FontSize": "16px",
+    "FontSizeMb": "14px",
+    "FontColour": "#007bff",
+    "ShowExtraPrice": "true",
+    "ExtraPriceFontClr": "#ff0000",
+    "ExtraPriceBrClr": "#cccccc",
+    "ExtraPriceBgClr": "#ffffff"
+  },
+  "SwitchViewArrows": {
+    "Color": "#007bff"
+  },
+  "SwitchViewDots": {
+    "colour": "#007bff",
+    "SelectColour": "#333333"
+  },
+  "zoom": {
+    "ZoomClr": "#007bff"
+  },
+  "ShareButton": {
+    "DisplayShrBtn": "true",
+    "IconOrTxtButton": "icon",
+    "ShrBtnClr": "#007bff",
+    "TextBtnRnd": "5px",
+    "TextBtnLnth": "100px"
+  },
+  "DescriptionMobile": {
+    "DescMbClr": "#333333",
+    "DescMbBkgClr": "#ffffff",
+    "DescMbFontFmly": "Arial, sans-serif",
+    "DescMbFontSize": "14px"
+  },
+  "OutOfStock": {
+    "badgeIconClr": "#ffffff",
+    "badgeBkgClr": "#ff0000",
+    "badgeBrWidth": "1px",
+    "badgeBrClr": "#ffffff",
+    "BannerTextClr": "#ffffff",
+    "BannerBgClr": "#ff0000"
+  }
+}

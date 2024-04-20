@@ -1,0 +1,44 @@
+.fontSelect{
+  display: block !important;
+  border-radius: 5px;
+  border: 1px solid #9C9C9C;
+  width: 217px;
+  height: 36px;
+  color: #2D2D2D;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.custom-select {
+  border: 0px;
+}
+.sidebar_menu li:last-child {
+  top: 0px; 
+}
+
+.sidebar_menu_section {
+  padding-top: 0px;
+}
+.right_wrapper {
+  top: 0px; 
+}
+.right_wrapper_conntaine{
+  padding-bottom: 30%; 
+}
+.theme_builder_wrapper_section .center_wrapper {
+  padding-top: 5%;
+}/*
+.theme_builder_wrapper_section .sider_baar .sidebar_menu_section {
+  overflow: scroll;
+  height: 85vh;
+}*/
+
+header.Haze_header .Select_Product_button .custom-select select {
+  border: none !important;
+  width: 100%;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 14px;
+}

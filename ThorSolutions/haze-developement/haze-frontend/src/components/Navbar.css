@@ -1,0 +1,42 @@
+/* SelectComponent.css */
+.select-wrapper {
+  position: relative;
+  width: 190px;
+}
+
+.select-wrapper::after {
+  content: '▾';
+  margin-right: 10px;
+  pointer-events: none;
+  position: absolute;
+  right: 10px;
+  top: 7px;
+  font-size: 20px;
+}
+.select1{
+        border: 1px solid black !important;
+}
+.b1{
+    font-size: 13px !important;
+}
+
+.select {
+      width: 179px !important;
+      border: 1px solid black;
+
+  background: white !important;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  padding: 12px;
+  width: 100%;
+  font-size: 18px;
+}
+
+.select:focus {
+  color: black;
+}
+
+.select::-ms-expand {
+  display: none;
+}

@@ -1,0 +1,125 @@
+/* order html start */
+.orders_form_row,
+.order_form_input_section {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.orders_form_row {
+  margin: 25px 0;
+  border-top: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 25px 0;
+}
+.order_date input#customDateInput::placeholder {
+  color: #d9d9d9;
+}
+.order_search_btn {
+  border: 1px solid var(--color-Silver);
+  width: 346px;
+  height: 32px;
+  border-radius: 5px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.order_date {
+  border-radius: 5px;
+  border: 1px solid var(--color-Silver);
+  width: 170px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.order_search_btn input {
+  position: relative;
+  width: 85%;
+  height: 100%;
+}
+
+.order_date input {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.order_inner_col:nth-child(2) {
+  margin-left: var(--font-size-21xl);
+}
+
+.order_input ::placeholder {
+  color: rgba(217, 217, 217, 0.6);
+  font-family: var(--primary-font);
+  font-size: var(--font-size-base);
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.order_input input {
+  padding: 10px;
+  background: none;
+  border: none;
+}
+
+.date_title {
+  color: var(--color-darkslategray);
+  font-family: var(--primary-font);
+  font-size: var(--font-size-base);
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.order_data_table table {
+  position: relative;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.order_data_table thead th:nth-child(1) {
+  width: 20%;
+}
+
+.order_data_table thead th:nth-child(2),
+.order_data_table thead th:nth-child(3) {
+  width: 15%;
+}
+
+.order_data_table thead th:nth-child(4) {
+  width: 40%;
+}
+
+.order_data_table thead th:nth-child(5) {
+  width: 10%;
+}
+
+.order_data_table {
+  /* Other styles for your table */
+}
+
+.order_data_table th,
+.order_data_table td {
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+  /* Align text to the top */
+}
+
+/* order html end */
+input#customDateInput[type="date"]::-webkit-calendar-picker-indicator {
+  width: 100%;
+  opacity: 0;
+  position: absolute;
+}
+input#customDateInput {
+  color: #9c9c9c;
+}
+.order_search_btn img.search-icon {
+  position: absolute;
+  width: 16px;
+  right: 15px;
+}

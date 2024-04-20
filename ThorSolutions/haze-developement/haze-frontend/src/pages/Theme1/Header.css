@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: normal;
+}
+.Haze_header {
+  padding-left: 2%;
+  align-items: normal;
+}
+
+.Haze_header {
+  background: var(--color-off-white);
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2% 3%;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.25) !important;
+  z-index: 999;
+  position: fixed;
+}
+.logo_section {
+  width: 17.7%;
+  display: flex;
+  align-items: center;
+}
+
+header .menu {
+  width: 1100px;
+  background: var(---user-background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+header .menu ul {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  gap: 20px;
+}
+
+.header_menu_list:first-child {
+  color: #2d2d2d;
+}
+
+.header_menu_list {
+  color: #fff;
+  font-family: var(--primary-font);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+header .right_header_Section {
+  width: 18.3%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+}
+.right_header_Section .login_buttotn {
+  display: inline-flex;
+  padding: 5px 16px;
+  align-items: center;
+  gap: 8px;
+}
+
+.right_header_Section button {
+  background: none;
+  border: none;
+  border-radius: 5px;
+  border: 1px solid var(--Button-fill, #2d2d2d);
+}
+.right_header_Section .view_button {
+  display: inline-flex;
+  padding: 4px;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ///////////////////  sidebar content */
+
+.left_wrapper {
+  padding-right: 3%;
+}
+
+.left_wrapper,
+.sider_baar {
+  padding-top: 3%;
+}
+.sider_baar {
+  padding-top: 3%;
+  width: 18%;
+  border-right: 1px solid var(--color-gainsboro);
+}
+.logic_button {
+  display: inline-flex;
+  padding: 5px 16px;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+}

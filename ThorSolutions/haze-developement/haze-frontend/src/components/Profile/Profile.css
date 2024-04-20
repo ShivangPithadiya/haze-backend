@@ -1,0 +1,49 @@
+.updv.position-relative img.mainuploadimg {
+    max-width: 90px;
+  }
+  .updv.position-relative img.edit-icon {
+    position: absolute;
+    max-width: 25px;
+    max-height: 25px;
+    bottom: -10px;
+    right: -10px;
+  }
+  input.form-control.profile-input.edit-icons {
+    position: relative;
+    padding-right: 30px;
+  }
+  .position-relative.edit-icons img.edit-icon {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: 5px;
+    top: 7px;
+  }
+  section.wrapper_section .left_wrapper {
+    background: #fafafa;
+  }
+  form.needs-validation input {
+    border-color: transparent;
+  }
+  form.needs-validation label {
+    font-weight: 600;
+    font-size: 18px;
+  }
+  form.needs-validation {
+    font-family: "Poppins";
+    padding-bottom: 50px;
+  }
+  form.needs-validation button.btn.btn-primary.w-sm.waves-effect.waves-light {
+    background: #2d2d2d;
+    border: 1px solid #2d2d2d;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: calc(var(--bs-gutter-x) * 0.5);
+  }
+  form.needs-validation
+    button.btn.btn-primary.w-sm.waves-effect.waves-light:hover {
+    background: #ffffff;
+    color: #2d2d2d;
+  }
+  

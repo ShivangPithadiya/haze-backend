@@ -1,0 +1,138 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin: auto;
+  border-radius: 5px;
+  width: 478px;
+  height: 464px;
+  top: 232px;
+  left: 481px;
+}
+.signup {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin: auto;
+  border-radius: 5px;
+  width: 478px;
+  height: auto;
+  top: 232px;
+  left: 481px;
+}
+.login_div {
+  width: 100%;
+  height: 36px;
+  top: 259px;
+  left: 519px;
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+/* ////////////// */
+.container {
+  padding-left: 60px;
+}
+.login > img {
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+}
+.label_div{
+  font-family: Poppins;
+font-size: 18px;
+font-weight: 400;
+line-height: 27px;
+letter-spacing: 0em;
+text-align: left;
+
+}
+
+.input-div {
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+  border-radius: 3px;
+  padding: 12px;
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+.input-div input {
+  border: none !important;
+}
+.input-div > input:focus {
+  outline: none;
+}
+.forgot_pass {
+  font-family: Poppins;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-bottom: 15px;
+}
+.login > button {
+  padding: 12px;
+  border-radius: 8px;
+  border: 0;
+  font-weight: bolder;
+  color: white;
+  background-color: #2d2d2d;
+}
+.signup >button{
+  padding: 12px;
+  border-radius: 8px;
+  border: 0;
+  font-weight: bolder;
+  color: white;
+  width: 25%;
+  background-color: #2d2d2d;
+}
+.already_member{
+  width: 100%px;
+  height: 24px;
+  top: 751px;
+  left: 513px;
+  font-family: Poppins;
+font-size: 16px;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: 0em;
+text-align: left; 
+}
+.already_member span{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.account_create {
+  margin: auto;
+  margin-top: 18px;
+}
+.account_create span{
+  cursor: pointer;
+  text-decoration: underline;
+}
+.login > button:hover {
+  cursor: pointer;
+}
+.password-btn {
+  background-color: transparent;
+  border: none;
+}
+.password-btn i {
+  background-color: none;
+  border: none;
+}
+.login-btn:hover {
+  background-color: white;
+  border: 1px solid #0095f6;
+  color: #0095f6;
+}

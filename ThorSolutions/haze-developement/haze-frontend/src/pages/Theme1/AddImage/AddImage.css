@@ -1,0 +1,79 @@
+.droducts_col_title {
+    color: var(--color-darkslategray);
+    font-family: var(--primary-font);
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: -75px;
+  }
+  .untitle_title{
+    /* margin-top: -10px;
+    margin: -10px 0px 0px 1.5rem; */
+    margin-left: 25px !important;
+  }
+  .upload_image {
+    width: 64px;
+    height: 64px;
+   
+    border-radius: 5px;
+    background: #F2F2F2;
+    background-blend-mode: multiply;
+    position: relative; /* Add position relative to the container */
+}
+
+.upload_image img {
+    width: 33px;
+    height: 46px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.upload_image .dummyImage {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 5px;
+  /* top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+}
+.p-head{
+  color: #2D2D2D;
+font-family: Poppins;
+font-size: 14px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+.color_div{
+  
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right:10px;
+    margin-top: 10px;
+ 
+}
+
+
+/* /////////////// */
+.image-text {
+  position: absolute;
+  top: 50%;
+  left: 50%; /* Adjust as needed */
+  transform: translate(-50%, -50%);
+  font-size: 20px; /* Adjust as needed */
+  
+ 
+  z-index: 2;
+}
+.border_div{
+ height: .5px;
+ background-color: rgb(198, 196, 196);
+ width: 100%;
+margin: 20px 0px;
+}
+
+/* Your existing styles can continue here */
