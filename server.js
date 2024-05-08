@@ -39,7 +39,9 @@ app.use("/api/data", require("./routes/ProductDataRoutes"));
 app.use("/api/shopify", require("./routes/shopifyRoutes"));
 
 userModel.createSuperAdminIfNeeded();
-
+app.get("*", (req, res) => {
+  res.send("Hello I'm haze backend")
+})
 
 // Set the port
 const PORT = process.env.PORT || 5001;
