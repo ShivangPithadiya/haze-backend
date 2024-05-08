@@ -42,7 +42,7 @@ userModel.createSuperAdminIfNeeded();
 
 
 // Set the port
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5001;
 
 // Start the server
 app.listen(PORT, () => {
