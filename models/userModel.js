@@ -15,8 +15,8 @@ const userSchema = new mongoose.Schema(
     userType: {
       type: String,
       required: true,
-      // enum: ["super-admin", "retailer"],
-      default: "retailer"
+      enum: ["super-admin", "retail-user"],
+      default: "retail-user"
     },
     email: {
       type: String,

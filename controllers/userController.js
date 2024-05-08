@@ -320,7 +320,7 @@ const createSuperAdminController = async (req, res) => {
 
 		// Create new super admin
 		const newUser = new userModel({
-			name, email, userType: 'super-admin' || 'retailer', password: password
+			name, email, userType: 'super-admin' || 'retail-user', password: password
 		});
 		await newUser.save();
 
@@ -343,7 +343,7 @@ const createSuperAdminController = async (req, res) => {
 const getListRetailerController = async (req, res) => {
 	try {
 		// Check if the user is a retailer
-		// if (req.user.userType !== 'retailer') {
+		// if (req.user.userType !== 'retail-user') {
 		// 	return res.status(403).json({ success: false, message: "Access forbidden" });
 		// }
 
@@ -351,7 +351,7 @@ const getListRetailerController = async (req, res) => {
 		const users = await userModel.find();
 
 		// Filter users based on userType
-		// const retailerUsers = users.filter(user => user.userType === 'retailer');
+		// const retailerUsers = users.filter(user => user.userType === 'retail-user');
 
 		res.status(200).json({ success: true, users: users });
 	} catch (error) {
