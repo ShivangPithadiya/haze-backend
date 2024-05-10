@@ -30,19 +30,26 @@ const createProductData = async (req, res) => {
 // Update an existing layer data
 // Update an existing layer data
 const updateProductData = async (req, res) => {
-  if (req.body.layerId != null) {
-    res.productData.layerId = req.body.layerId;
-  }
-  // Update other properties similarly...
-  if (req.body.status != null) {
-    res.productData.status = req.body.status; // Update the status
-  }
-
+  //update product data
   try {
-    const updatedProductData = await res.productData.save();
-    res.json(updatedProductData);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
+    const productData = await ProductData.findById(req.params.id);
+    
+    if (productData) 
+      {
+        const newData = req.body; // Assuming the data is sent in the request body
+        const data = await ProductData
+          .findByIdAndUpdate(req.params.id, newData, { new: true });
+        res.status(201).json(data);
+        
+      }
+      else {
+        res.status(404).json({ message: "Product data not found" });
+      
+      }
+    
+  }
+  catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 

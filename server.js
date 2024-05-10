@@ -19,7 +19,7 @@ connectDb();
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: "*", // Allow requests from all origins
+    origin: ["*", "haze.staging.app", "http://localhost:5173"], // Allow requests from all origins
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Specify the allowed HTTP methods
     allowedHeaders: ["Content-Type", "Authorization", "shopifyStoredomain", "shopifyAccessToken"], // Specify the allowed headers
   })
@@ -37,10 +37,11 @@ app.use("/api/data", require("./routes/customizerRoutes"));
 app.use("/api/data", require("./routes/layerDataRoutes"));
 app.use("/api/data", require("./routes/ProductDataRoutes"));
 app.use("/api/shopify", require("./routes/shopifyRoutes"));
-
+app.use("/api/email", require('./routes/inviteRoutes'))
 userModel.createSuperAdminIfNeeded();
+
 app.get("*", (req, res) => {
-  res.send("Hello I'm haze backend")
+  res.send("Hello I'm Haze backend")
 })
 
 // Set the port

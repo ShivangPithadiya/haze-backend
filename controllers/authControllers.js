@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const JWT = require("jsonwebtoken");
 const secretKey = process.env.JWT_SECRET || '12345';
 const generateToken = (userId, userType) => {
-  return JWT.sign({ userId, userType }, secretKey, { expiresIn: '1h' })
+  return JWT.sign({ userId, userType }, secretKey, { expiresIn: '5h' })
 }
 // REGISTER
 const registerController = async (req, res) => {
@@ -20,7 +20,7 @@ const registerController = async (req, res) => {
       shopifystoredomain,
     } = req.body;
     //validation
-    if (!email || !password || !name || !confirmPassword ||  !shopifyapikey || !shopifyaccesstoken || !shopifystoredomain) {
+    if (!email || !password || !name || !confirmPassword || !shopifyapikey || !shopifyaccesstoken || !shopifystoredomain) {
       return res.status(500).send({
         success: false,
         message: "Please Provide All Fields",
@@ -41,7 +41,7 @@ const registerController = async (req, res) => {
     var salt = bcrypt.genSaltSync(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     //create new user
-    console.log("body",shopifystoredomain)
+    console.log("body", shopifystoredomain)
     const user = await userModel.create({
       email,
       name,
@@ -94,7 +94,7 @@ const loginController = async (req, res) => {
             name: user.name,
             email: user.email,
             userType: user.userType,
-            shopifystoredomain:user.shopifystoredomain,
+            shopifystoredomain: user.shopifystoredomain,
             shopifyaccesstoken: user.shopifyaccesstoken
           }
         })
@@ -128,50 +128,7 @@ const loginController = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
-// CREATE SUPER ADMIN
-const createSuperAdminController = async (req, res) => {
-  try {
-    const { email, name, password, confirmPassword } = req.body;
-    // Check if requester is a super admin
-    const decoded = JWT.verify(req.header("Authorization"), secretKey);
-    if (decoded.userType !== 'super-admin') {
-      return res.status(403).json({ success: false, message: "Access forbidden" });
-    }
-    // Validation
-    if (!email || !password || !name || !confirmPassword) {
-      return res.status(400).json({ success: false, message: "Please provide all required fields" });
-    }
-    if (password !== confirmPassword) {
-      return res.status(400).json({ success: false, message: 'Passwords do not match' });
-    }
-    // Check if user already exists
-    const existingUser = await userModel.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ success: false, message: 'Email already registered' });
-    }
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
-    // Create new super admin
-    const user = await userModel.create({
-      name, email, userType: 'superadmin', password: hashedPassword
-    });
-    res.status(201).json({
-      success: true,
-      message: "Super admin created successfully",
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        userType: user.userType,
-        shopifystoredomain: user.shopifystoredomain,
-        shopifyaccesstoken: user.shopifyaccesstoken,
-      },
-    });
-  } catch (error) {
-    console.error('Error in createSuperAdminController:', error);
-    res.status(500).json({ success: false, message: "Internal server error" });
-  }
-};
+
 const resetPasswordRequest = async (req, res) => {
   try {
     const { email } = req.body;
@@ -239,4 +196,4 @@ const updatePassword = async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 };
-module.exports = { registerController, loginController, createSuperAdminController, resetPasswordRequest, resetPassword, updatePassword };
+module.exports = { registerController, loginController, resetPasswordRequest, resetPassword, updatePassword };

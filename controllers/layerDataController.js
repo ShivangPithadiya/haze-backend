@@ -28,17 +28,23 @@ const createLayerData = async (req, res) => {
 
 // Update an existing layer data
 const updateLayerData = async (req, res) => {
-	if (req.body.layerId != null) {
-		res.layerData.layerId = req.body.layerId;
-	}
-	// Update other properties similarly...
+	try{
+		const layerData = await LayerData.findById(req.params.id);
+		if (layerData) {
+			const newData = req.body;
+			const data = await LayerData.findByIdAndUpdate(req
+				.params.id, newData, { new: true });
+			res.status(201).json(data);
 
-	try {
-		const updatedLayerData = await res.layerData.save();
-		res.json(updatedLayerData);
-	} catch (error) {
-		res.status(400).json({ message: error.message });
+		} else {
+			res.status(404).json({ message: 'Layer data not found' });
+		}
+
 	}
+	catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+
 };
 
 // Delete a layer data

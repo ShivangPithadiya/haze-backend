@@ -6,7 +6,7 @@ const {
 	registerController,
 	loginController,
 	resetPasswordRequest,
-	createSuperAdminController,
+
 	resetPassword,
 	updatePassword
 } = require("../controllers/authControllers");

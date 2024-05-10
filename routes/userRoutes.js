@@ -8,8 +8,10 @@ const {
 	updatePasswordController,
 	resetPasswordController,
 	deleteProfileController,
-	createSuperAdminController,
-	getListRetailerController
+	createSuperAdminManagerController,
+	getListSuperAdminManagerController,
+	createStoreOwnerManagerController,
+	getListStoreOwnerManagerController,
 } = require("../controllers/userController");
 const authMiddleware = require("../middlewares/authMiddleware");
 const checkSuperAdmin = require('../middlewares/checkSuperAdmin')
@@ -50,7 +52,13 @@ router.post("/resetpassword", resetPasswordController);
 router.delete("/deleteuser/:id", deleteProfileController);
 
 
-router.post('/superadmin/create', createSuperAdminController)
-router.get('/superadmin/getlist-retailer', getListRetailerController)
+//SUPERADMIN MANAGER
+router.post('/super-admin-manager/create', createSuperAdminManagerController)
+router.get('/super-admin-manager/getlist', getListSuperAdminManagerController)
+
+//STORE OWNER MANAGER
+router.post('/store-owner-manager/create', createStoreOwnerManagerController)
+router.get('/store-owner-manager/getlist', getListStoreOwnerManagerController)
+
 
 module.exports = router;

@@ -250,56 +250,8 @@ const deleteProfileController = async (req, res) => {
 	}
 };
 
-// const createSuperAdminController = async (req, res) => {
-// 	try {
-// 		const { email, name, password, confirmPassword } = req.body;
 
-// 		// Check if requester is a super admin
-// 		const decoded = JWT.verify(req.header("Authorization"), secretKey);
-// 		if (decoded.userType !== 'super-admin') {
-// 			return res.status(403).json({ success: false, message: "Access forbidden" });
-// 		}
-
-// 		// Validation
-// 		if (!email || !password || !name || !confirmPassword) {
-// 			return res.status(400).json({ success: false, message: "Please provide all required fields" });
-// 		}
-
-// 		if (password !== confirmPassword) {
-// 			return res.status(400).json({ success: false, message: 'Passwords do not match' });
-// 		}
-
-// 		// Check if user already exists
-// 		const existingUser = await userModel.findOne({ email });
-// 		if (existingUser) {
-// 			return res.status(400).json({ success: false, message: 'Email already registered' });
-// 		}
-
-// 		// Hash password
-// 		const hashedPassword = await bcrypt.hash(password, 10);
-
-// 		// Create new super admin
-// 		const user = await userModel.create({
-// 			name, email, userType: 'superadmin', password: hashedPassword
-// 		});
-
-// 		res.status(201).json({
-// 			success: true,
-// 			message: "Super admin created successfully",
-// 			user: {
-// 				_id: user._id,
-// 				name: user.name,
-// 				email: user.email,
-// 				userType: user.userType,
-// 			}
-// 		});
-// 	} catch (error) {
-// 		console.error('Error in createSuperAdminController:', error);
-// 		res.status(500).json({ success: false, message: "Internal server error" });
-// 	}
-// };
-
-const createSuperAdminController = async (req, res) => {
+const createSuperAdminManagerController = async (req, res) => {
 	try {
 		const { email, name, password, confirmPassword } = req.body;
 
@@ -320,18 +272,22 @@ const createSuperAdminController = async (req, res) => {
 
 		// Create new super admin
 		const newUser = new userModel({
-			name, email, userType: 'super-admin' || 'retail-user', password: password
+			name, email, userType: 'super-admin-manager', password: password
 		});
 		await newUser.save();
 
 		res.status(201).json({
 			success: true,
-			message: "Super admin created successfully",
+			message: "Super admin manager created successfully",
 			user: {
 				_id: newUser._id,
 				name: newUser.name,
 				email: newUser.email,
-				userType: newUser.userType,
+				userType: newUser.userType
+				// shopifyapikey: newUser.shopifyapikey,
+				// shopifyaccesstoken: newUser.shopifyaccesstoken,
+				// shopifystoredomain: newUser.shopifystoredomain
+
 			}
 		});
 	} catch (error) {
@@ -339,34 +295,86 @@ const createSuperAdminController = async (req, res) => {
 		res.status(500).json({ success: false, message: "Internal server error" });
 	}
 };
-
-const getListRetailerController = async (req, res) => {
+const getListSuperAdminManagerController = async (req, res) => {
 	try {
-		// Check if the user is a retailer
-		// if (req.user.userType !== 'retail-user') {
-		// 	return res.status(403).json({ success: false, message: "Access forbidden" });
-		// }
-
-		// Retrieve all users from the database
-		const users = await userModel.find();
-
-		// Filter users based on userType
-		// const retailerUsers = users.filter(user => user.userType === 'retail-user');
+		// Retrieve all users from the database with userType 'super-admin-manager'
+		const users = await userModel.find({ userType: 'store-owner-manager' });
 
 		res.status(200).json({ success: true, users: users });
 	} catch (error) {
-		console.error('Error in getListRetailerController:', error);
+		console.error('Error in super admin manager controller:', error);
 		res.status(500).json({ success: false, message: "Internal server error" });
 	}
 };
+
+const createStoreOwnerManagerController = async (req, res) => {
+	try {
+		const { email, name, password, confirmPassword, shopifyapikey, shopifyaccesstoken, shopifystoredomain } = req.body;
+
+		// Validation
+		if (!email || !password || !name || !confirmPassword || !shopifyapikey || !shopifyaccesstoken || !shopifystoredomain) {
+			return res.status(400).json({ success: false, message: "Please provide all required fields" });
+		}
+
+		if (password !== confirmPassword) {
+			return res.status(400).json({ success: false, message: 'Passwords do not match' });
+		}
+
+		// Check if user already exists
+		let existingUser = await userModel.findOne({ email });
+		if (existingUser) {
+			return res.status(400).json({ success: false, message: 'Email already registered' });
+		}
+
+		// Create new store owner manager
+		const newUser = new userModel({
+			name, email, userType: 'store-owner-manager', password: password, shopifyapikey, shopifyaccesstoken, shopifystoredomain,
+		});
+		await newUser.save();
+
+		res.status(201).json({
+			success: true,
+			message: "Store owner manager created successfully",
+			user: {
+				_id: newUser._id,
+				name: newUser.name,
+				email: newUser.email,
+				userType: newUser.userType,
+				shopifyapikey: newUser.shopifyapikey,
+				shopifyaccesstoken: newUser.shopifyaccesstoken,
+				shopifystoredomain: newUser.shopifystoredomain
+
+			}
+		});
+	} catch (error) {
+		console.error('Error in store owner manager controller:', error);
+		res.status(500).json({ success: false, message: "Internal server error" });
+	}
+};
+
+const getListStoreOwnerManagerController = async (req, res) => {
+	try {
+		// Retrieve all users from the database with userType 'store-owner-manager'
+		const users = await userModel.find({ userType: 'store-owner-manager' });
+
+		res.status(200).json({ success: true, users: users });
+	} catch (error) {
+		console.error('Error in store owner manager list controller:', error);
+		res.status(500).json({ success: false, message: "Internal server error" });
+	}
+};
+
+
 
 module.exports = {
 	addProfileDetails,
 	getUserProfileController,
 	getUserController,
 	updateUserController,
-	createSuperAdminController,
-	getListRetailerController,
+	createSuperAdminManagerController,
+	getListSuperAdminManagerController,
+	createStoreOwnerManagerController,
+	getListStoreOwnerManagerController,
 	updatePasswordController,
 	resetPasswordController,
 	deleteProfileController,
