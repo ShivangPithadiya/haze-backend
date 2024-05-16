@@ -1,3 +1,5 @@
+
+
 /* eslint-disable no-undef */
 const EmailInvite = require('../models/inviteModel');
 const nodemailer = require('nodemailer');
@@ -35,11 +37,23 @@ async function inviteUserController(req, res) {
 		const newUser = new EmailInvite({ email, password: randomPassword });
 		await newUser.save();
 
+		// Generate a unique token for invitation link
+		const token = generateRandomPassword(16); // Adjust length as needed
+		const inviteLink = `https://haze.staging.app/register?token=${token}`; // Assuming token is used in the registration URL
+
 		const mailOptions = {
 			from: 'jiozindagichanchal@gmail.com',
 			to: email,
 			subject: 'Invitation to join Haze',
-			text: `Hello! You have been invited to join our team at Haze. Your login credentials are:\nEmail: ${email}\nPassword: ${randomPassword}`
+			html: `
+				<p>Hello! You have been invited to join our team at Haze.</p>
+				<p>Your login credentials are:</p>
+				<ul>
+					<li>Email: ${email}</li>
+					<li>Password: ${randomPassword}</li>
+				</ul>
+				<p>Click <a href="${inviteLink}">here</a> to register.</p>
+			`
 		};
 
 		transporter.sendMail(mailOptions, (error, info) => {
@@ -48,7 +62,8 @@ async function inviteUserController(req, res) {
 				res.status(500).json({ error: 'Error sending email' });
 			} else {
 				console.log('Email sent:', info.response);
-				res.status(201).json({ message: 'Invitation sent successfully' });
+				// Send invite link along with the response
+				res.status(201).json({ message: 'Invitation sent successfully', inviteLink: inviteLink });
 			}
 		});
 	} catch (error) {

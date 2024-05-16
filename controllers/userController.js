@@ -5,6 +5,8 @@ const bcrypt = require("bcryptjs");
 const multer = require('multer')
 const path = require('path')
 const JWT = require("jsonwebtoken");
+const nodemailer = require('nodemailer');
+
 const secretKey = process.env.JWT_SECRET || '12345';
 // Multer configuration for file upload
 const storage = multer.diskStorage({
@@ -22,9 +24,20 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+const transporter = nodemailer.createTransport({
+	host: 'smtp.gmail.com',
+	port: 465,
+	secure: true,
+	auth: {
+		user: 'jiozindagichanchal@gmail.com',
+		pass: 'jjpg ryat hqfc tlqg'
+	}
+});
+
+
 const addProfileDetails = async (req, res) => {
 	try {
-		const { userId, city, state, country, address, status } = req.body;
+		const { userId, name, city, state, country, address, phone, status, password } = req.body;
 		let profileImage = '';
 		if (req.file) {
 			profileImage = req.file.path
@@ -34,14 +47,44 @@ const addProfileDetails = async (req, res) => {
 		if (!user) {
 			return res.status(404).json({ success: false, message: "User not found" });
 		}
-		user.city = city;
-		user.state = state;
-		user.country = country;
-		user.address = address;
-		user.status = status;
-		user.profileImage = profileImage;
+		// user.city = city;
+		// user.state = state;
+		// user.country = country;
+		// user.address = address;
+		// user.status = status;
+		// user.profileImage = profileImage;
+
+		// await user.save();
+		if (name) user.name = name;
+		if (city) user.city = city;
+		if (state) user.state = state;
+		if (country) user.country = country;
+		if (address) user.address = address;
+		if (phone) user.phone = phone;
+		if (password) {
+			const salt = bcrypt.genSaltSync(10);
+			const hashedPassword = await bcrypt.hash(password, salt);
+			user.password = hashedPassword;
+		}
+		if (profileImage) user.profileImage = profileImage;
 
 		await user.save();
+		// Send email notification after updating profile
+		const mailOptions = {
+			from: 'jiozindagichanchal@gmail.com',
+			to: user.email,
+			subject: 'Profile Update Notification',
+			text: `Hello ${user.name}, Your profile has been updated successfully.`,
+		};
+
+		transporter.sendMail(mailOptions, (error, info) => {
+			if (error) {
+				console.error('Error in sending email:', error);
+			} else {
+				console.log('Email sent:', info.response);
+			}
+		});
+
 		res.status(200).json({ success: true, message: "Profile details updated successfully", user });
 	} catch (error) {
 		console.error("Error in addProfileDetails:", error);
@@ -250,7 +293,26 @@ const deleteProfileController = async (req, res) => {
 	}
 };
 
+//SUPER-ADMIN PROFILE
 
+const getAllStoreOwnersController = async (req, res) => {
+	try {
+		// Check if the user is a super-admin
+		// if (req.user.userType !== 'super-admin') {
+		//     return res.status(403).json({ success: false, message: "Access forbidden" });
+		// }
+
+		// Find all users with userType 'store-owner'
+		const storeOwners = await userModel.find({ userType: 'store-owner' });
+
+		res.status(200).json({ success: true, storeOwners: storeOwners });
+	} catch (error) {
+		console.error('Error in getting list of store-owners:', error);
+		res.status(500).json({ success: false, message: "Internal server error" });
+	}
+}
+
+//SUPER ADMIN  MANAGER PROFILE
 const createSuperAdminManagerController = async (req, res) => {
 	try {
 		const { email, name, password, confirmPassword } = req.body;
@@ -306,7 +368,27 @@ const getListSuperAdminManagerController = async (req, res) => {
 		res.status(500).json({ success: false, message: "Internal server error" });
 	}
 };
+const updateSuperAdminManagerStatusController = async (req, res) => {
+	try {
+		const { userId } = req.params;
+		const { status } = req.body;
 
+		// // Check if the user is a super-admin
+		// if (req.user.userType !== 'super-admin') {
+		// 	return res.status(403).json({ success: false, message: "Access forbidden" });
+		// }
+
+		// Find and update the status of super-admin-manager
+		const updatedUser = await userModel.findByIdAndUpdate(userId, { status }, { new: true });
+
+		res.status(200).json({ success: true, message: "Status updated successfully", user: updatedUser });
+	} catch (error) {
+		console.error('Error in updating status of super-admin-manager:', error);
+		res.status(500).json({ success: false, message: "Internal server error" });
+	}
+};
+
+//STORE OWNER MANAGER PROFILE
 const createStoreOwnerManagerController = async (req, res) => {
 	try {
 		const { email, name, password, confirmPassword, shopifyapikey, shopifyaccesstoken, shopifystoredomain } = req.body;
@@ -363,7 +445,25 @@ const getListStoreOwnerManagerController = async (req, res) => {
 		res.status(500).json({ success: false, message: "Internal server error" });
 	}
 };
+const updateStoreOwnerManagerStatusController = async (req, res) => {
+	try {
+		const { userId } = req.params;
+		const { status } = req.body;
 
+		// Check if the user is a store-owner
+		// if (req.user.userType !== 'store-owner') {
+		// 	return res.status(403).json({ success: false, message: "Access forbidden" });
+		// }
+
+		// Find and update the status of store-owner-manager
+		const updatedUser = await userModel.findByIdAndUpdate(userId, { status }, { new: true });
+
+		res.status(200).json({ success: true, message: "Status updated successfully", user: updatedUser });
+	} catch (error) {
+		console.error('Error in updating status of store-owner-manager:', error);
+		res.status(500).json({ success: false, message: "Internal server error" });
+	}
+};
 
 
 module.exports = {
@@ -371,10 +471,13 @@ module.exports = {
 	getUserProfileController,
 	getUserController,
 	updateUserController,
+	getAllStoreOwnersController,
 	createSuperAdminManagerController,
 	getListSuperAdminManagerController,
+	updateSuperAdminManagerStatusController,
 	createStoreOwnerManagerController,
 	getListStoreOwnerManagerController,
+	updateStoreOwnerManagerStatusController,
 	updatePasswordController,
 	resetPasswordController,
 	deleteProfileController,

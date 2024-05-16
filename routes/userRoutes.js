@@ -8,10 +8,13 @@ const {
 	updatePasswordController,
 	resetPasswordController,
 	deleteProfileController,
+	getAllStoreOwnersController,
 	createSuperAdminManagerController,
 	getListSuperAdminManagerController,
+	updateSuperAdminManagerStatusController,
 	createStoreOwnerManagerController,
 	getListStoreOwnerManagerController,
+	updateStoreOwnerManagerStatusController
 } = require("../controllers/userController");
 const authMiddleware = require("../middlewares/authMiddleware");
 const checkSuperAdmin = require('../middlewares/checkSuperAdmin')
@@ -51,14 +54,18 @@ router.post("/resetpassword", resetPasswordController);
 // delete USER
 router.delete("/deleteuser/:id", deleteProfileController);
 
+//SUPER-ADMIN
+router.get('/super-admin/getlist', getAllStoreOwnersController)
 
 //SUPERADMIN MANAGER
 router.post('/super-admin-manager/create', createSuperAdminManagerController)
 router.get('/super-admin-manager/getlist', getListSuperAdminManagerController)
+router.put('/super-admin-manager/:userId', updateSuperAdminManagerStatusController)
 
 //STORE OWNER MANAGER
 router.post('/store-owner-manager/create', createStoreOwnerManagerController)
 router.get('/store-owner-manager/getlist', getListStoreOwnerManagerController)
+router.put('/store-owner-manager/:userId', updateStoreOwnerManagerStatusController)
 
 
 module.exports = router;
