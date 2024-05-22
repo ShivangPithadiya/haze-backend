@@ -24,15 +24,15 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const transporter = nodemailer.createTransport({
-	host: 'smtp.gmail.com',
-	port: 465,
-	secure: true,
-	auth: {
-		user: 'jiozindagichanchal@gmail.com',
-		pass: 'jjpg ryat hqfc tlqg'
-	}
-});
+// const transporter = nodemailer.createTransport({
+// 	host: 'smtp.gmail.com',
+// 	port: 465,
+// 	secure: true,
+// 	auth: {
+// 		user: 'jiozindagichanchal@gmail.com',
+// 		pass: 'jjpg ryat hqfc tlqg'
+// 	}
+// });
 
 
 const addProfileDetails = async (req, res) => {
@@ -172,12 +172,15 @@ const updateUserController = async (req, res) => {
 			});
 		}
 		//update
-		const { userName, address, phone } = req.body;
+		const { userName, address, phone, shopifystoredomain, shopifyaccesstoken} =
+      req.body;
 		if (userName) user.userName = userName;
 		if (address) user.address = address;
 		if (phone) user.phone = phone;
-		//save user
-		await user.save();
+		if (shopifystoredomain) user.shopifystoredomain = shopifystoredomain;
+		if (shopifyaccesstoken) user.shopifyaccesstoken = shopifyaccesstoken;
+      //save user
+      await user.save();
 		res.status(200).send({
 			success: true,
 			message: "USer Updated SUccessfully",
@@ -191,6 +194,92 @@ const updateUserController = async (req, res) => {
 		});
 	}
 };
+//get user by shopdomain serch
+
+const getUserByShopDomain = async (req, res) => {
+	try {
+		const { shopifystoredomain } = req.body;
+		const user = await userModel.findOne({
+      shopifystoredomain: shopifystoredomain,
+    });
+		if (!user) {
+			return res.status(404).send({
+				success: false,
+				message: "User Not Found",
+			});
+
+		}
+		res.status(200).send({
+			success: true,
+			message: "User Found",
+			user,
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(500).send({
+			success: false,
+			message: "Error In Get User By Shop Domain API",
+			error,
+		});
+	}
+};
+
+//update user by shopdomain
+
+const updateUserByShopDomain = async (req, res) => {
+  try {
+    const {
+      shopifystoredomain,
+      shopifyaccesstoken,
+      planId,
+      plan,
+      planPrice,
+      planPurchaseDate,
+      status,
+    } = req.body;
+    const user = await userModel.findOne({
+      shopifystoredomain: shopifystoredomain,
+    });
+
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "User Not Found",
+      });
+    }
+
+    if (shopifyaccesstoken) {
+      user.shopifyaccesstoken = shopifyaccesstoken;
+    }
+
+    if (planId || plan || planPrice || planPurchaseDate || status) {
+      user.subscription = {
+        planId: `${planId}`,
+        plan: plan,
+        planPrice: planPrice,
+        planPurchaseDate: planPurchaseDate,
+        status: status,
+      };
+    }
+
+    await user.save();
+    res.status(200).send({
+      success: true,
+      message: "User Updated",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error In Update User By Shop Domain API",
+      error,
+    });
+  }
+};
+
+
+
+
 
 // UPDATE USER PASSWORR
 const updatePasswordController = async (req, res) => {
@@ -450,17 +539,112 @@ const updateStoreOwnerManagerStatusController = async (req, res) => {
 		const { userId } = req.params;
 		const { status } = req.body;
 
-		// Check if the user is a store-owner
-		// if (req.user.userType !== 'store-owner') {
-		// 	return res.status(403).json({ success: false, message: "Access forbidden" });
-		// }
-
-		// Find and update the status of store-owner-manager
 		const updatedUser = await userModel.findByIdAndUpdate(userId, { status }, { new: true });
 
 		res.status(200).json({ success: true, message: "Status updated successfully", user: updatedUser });
 	} catch (error) {
-		console.error('Error in updating status of store-owner-manager:', error);
+		console.error('Error in updating status of store-owner:', error);
+		res.status(500).json({ success: false, message: "Internal server error" });
+	}
+
+	// try {
+	// 	const { userIds, status } = req.body;
+
+	// 	// Validate the request body
+	// 	if (!Array.isArray(userIds) || userIds.length === 0) {
+	// 		return res.status(400).json({ success: false, message: "Please provide a list of user IDs" });
+	// 	}
+	// 	if (!status) {
+	// 		return res.status(400).json({ success: false, message: "Please provide a status" });
+	// 	}
+
+	// 	// Update the status of the specified users
+	// 	const updatedUsers = await userModel.updateMany(
+	// 		{ _id: { $in: userIds }, userType: 'store-owner' },
+	// 		{ $set: { status } },
+	// 		{ new: true }
+	// 	);
+
+	// 	if (updatedUsers.modifiedCount === 0) {
+	// 		return res.status(404).json({ success: false, message: "No store owners found or updated" });
+	// 	}
+
+	// 	res.status(200).json({ success: true, message: "Statuses updated successfully", updatedCount: updatedUsers.modifiedCount });
+	// } catch (error) {
+	// 	console.error('Error in updating statuses of store owners:', error);
+	// 	res.status(500).json({ success: false, message: "Internal server error" });
+	// }
+};
+
+
+//UPDATE STORE OWNER
+const updateStoreOwnerStatusController = async (req, res) => {
+	try {
+		const { userId } = req.params;
+		const status  = req.body.user.status;
+
+		// Find the user to update and ensure they are a store-owner-manager
+		const userToUpdate = await userModel.findById(userId);
+		if (!userToUpdate) {
+			return res.status(404).json({ success: false, message: "User not found" });
+		}
+
+		if (userToUpdate.userType !== 'store-owner') {
+			return res.status(403).json({ success: false, message: "Only store-owner can be updated" });
+		}
+
+		// Update the status
+		userToUpdate.status = status;
+		await userToUpdate.save();
+
+		res.status(200).json({ success: true, message: "Status updated successfully", user: userToUpdate });
+	} catch (error) {
+		console.error('Error in updating status of store-owner:', error);
+		res.status(500).json({ success: false, message: "Internal server error" });
+	}
+};
+
+const updateStoreOwnerStatusBySubscriptionController = async (req, res) => {
+	try {
+		const { userId } = req.params;
+		const { status } = req.body;
+
+
+
+		// Find the user to update and ensure they are a store-owner-manager
+		const userToUpdate = await userModel.findById(userId);
+		if (!userToUpdate) {
+			return res.status(404).json({ success: false, message: "User not found" });
+		}
+
+		if (userToUpdate.userType !== 'store-owner') {
+			return res.status(403).json({ success: false, message: "Only store-owner can be updated" });
+		}
+
+		// Update the status
+		userToUpdate.status = status;
+		await userToUpdate.save();
+
+		res.status(200).json({ success: true, message: "Status updated successfully", user: userToUpdate });
+	} catch (error) {
+		console.error('Error in updating status of store-owner:', error);
+		res.status(500).json({ success: false, message: "Internal server error" });
+	}
+};
+
+const deleteStoreOwnerController = async (req, res) => {
+	try {
+		const { userId } = req.params;
+
+		// Find and delete the user
+		const userToDelete = await userModel.findByIdAndDelete(userId);
+		if (!userToDelete) {
+			return res.status(404).json({ success: false, message: "User not found" });
+		}
+
+		res.status(200).json({ success: true, message: "User deleted successfully" });
+	} catch (error) {
+		console.error('Error in deleting user:', error);
 		res.status(500).json({ success: false, message: "Internal server error" });
 	}
 };
@@ -471,6 +655,8 @@ module.exports = {
 	getUserProfileController,
 	getUserController,
 	updateUserController,
+	getUserByShopDomain,
+	updateUserByShopDomain,
 	getAllStoreOwnersController,
 	createSuperAdminManagerController,
 	getListSuperAdminManagerController,
@@ -481,5 +667,9 @@ module.exports = {
 	updatePasswordController,
 	resetPasswordController,
 	deleteProfileController,
+	updateStoreOwnerStatusController,
+	updateStoreOwnerStatusBySubscriptionController,
+	deleteStoreOwnerController
+
 
 };

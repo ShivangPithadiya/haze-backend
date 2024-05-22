@@ -20,10 +20,12 @@ const fetchProducts = async (req, res) => {
 const fetchProductsById = async (req, res) => {
 	let productId = req.params.id
 	console.log("dhkh",productId)
+	const shopDomain = req.headers['shopifystoredomain'];
+	const accessToken = req.headers['shopifyaccesstoken'];
 	try {
-		const response = await axios.get(`https://${process.env.SHOP_DOMAIN}/admin/api/2022-01/products/${productId}.json`, {
+		const response = await axios.get(`https://${shopDomain}/admin/api/2022-01/products/${productId}.json`, {
 			headers: {
-				'X-Shopify-Access-Token': process.env.ACCESS_TOKEN
+				'X-Shopify-Access-Token': accessToken
 			}
 		});
 		res.json(response.data);
@@ -57,7 +59,7 @@ const createProduct = async (req, res) => {
 		res.status(500).json({ error: 'Internal Server Error' });
 	}
 };
-
+//updateProductby id
 
 const fetchOrders = async (req, res) => {
 	const shopDomain = req.headers["shopifystoredomain"];
@@ -90,13 +92,36 @@ const fetchCustomers = async (req, res) => {
 		res.status(500).json({ error: 'Internal Server Error' });
 	}
 };
+//add to chart shopify
+const addToCart = async (req, res) => {
+
+
+	
+		try {								
+			const  {Details} = req.body;
+			console.log("Details", Details);
+			const shopDomain = Details.shopDomain;
+			const variant_id = Details.variant_id;
+			const quantity = 1;
+			const response = await axios.post(`https://${shopDomain}/cart/${variant_id}:${quantity}`);
+			res.json(response.config.url);
+			console.log("response", response.config.url);
+       
+        }
+		catch (error) {
+			console.error(error);
+		}	
+		
+	}
+//fetch cart shopify	
 
 module.exports = {
 	fetchProducts,
 	createProduct,
 	fetchOrders,
 	fetchCustomers,
-	fetchProductsById
+	fetchProductsById,
+	addToCart
 };
 
 

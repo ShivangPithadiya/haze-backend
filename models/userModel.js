@@ -15,8 +15,13 @@ const userSchema = new mongoose.Schema(
     userType: {
       type: String,
       required: true,
-      enum: ["super-admin", "super-admin-manager", "store-owner", "store-owner-manager"],
-      default: "store-owner"
+      enum: [
+        "super-admin",
+        "super-admin-manager",
+        "store-owner",
+        "store-owner-manager",
+      ],
+      default: "store-owner",
     },
     email: {
       type: String,
@@ -27,6 +32,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ["active", "inactive"],
       default: "active",
+    },
+    role: {
+      type: String,
+      enum: ["Administrators", "Users", "Editor"],
+    
     },
     password: {
       type: String,
@@ -50,10 +60,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    shopifyapikey: {
-      type: String,
-      required: false,
-    },
     shopifyaccesstoken: {
       type: String,
       required: false,
@@ -62,6 +68,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    subscription: {
+      planId: { type: String },
+      plan: { type: String },
+      planPrice: { type: String },
+      planPurchaseDate: { type: String },
+      status: { type: String },
+    },
+
     profile: {
       data: Buffer,
       contentType: String,

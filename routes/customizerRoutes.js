@@ -26,5 +26,6 @@ router.post('/customizer', verifyToken, postCustomizerData);
 //    updateCustomizerDatabyid,
 
 router.get("/customizer/:pid", verifyToken, getCustomizerDatabyid);
+router.get("/customizerData/:pid", getCustomizerDatabyid);
 router.patch("/customizer/:pid", verifyToken, updateCustomizerDatabyid);
    (module.exports = router);

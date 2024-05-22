@@ -15,12 +15,9 @@ const registerController = async (req, res) => {
       userType,
       password,
       confirmPassword,
-      shopifyapikey,
-      shopifyaccesstoken,
-      shopifystoredomain,
     } = req.body;
     //validation
-    if (!email || !password || !name || !confirmPassword || !shopifyapikey || !shopifyaccesstoken || !shopifystoredomain) {
+    if (!email || !password || !name || !confirmPassword ) {
       return res.status(500).send({
         success: false,
         message: "Please Provide All Fields",
@@ -40,16 +37,12 @@ const registerController = async (req, res) => {
     //hashing password
     var salt = bcrypt.genSaltSync(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    //create new user
-    console.log("body", shopifystoredomain)
+  
     const user = await userModel.create({
       email,
       name,
       userType,
       password: hashedPassword,
-      shopifyapikey,
-      shopifyaccesstoken,
-      shopifystoredomain,
     });
     res.status(201).send({
       success: true,

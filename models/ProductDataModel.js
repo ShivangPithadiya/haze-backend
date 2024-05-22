@@ -2,6 +2,7 @@ const { create } = require("lodash");
 const mongoose = require("mongoose");
 
 const ProductDataSchema = new mongoose.Schema({
+  _id: { type: String, required: true },
   title: { type: String, required: true },
 
   layerdata: [
@@ -44,8 +45,7 @@ const ProductDataSchema = new mongoose.Schema({
 
   status: { type: String, default: "active" },
   created_at: { type: Date, default: Date.now },
- updated_at: { type: Date, default: Date.now },
-
+  updated_at: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("Products", ProductDataSchema);

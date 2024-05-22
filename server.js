@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const connectDb = require("./config/db");
 const userModel = require('./models/userModel')
+const { swaggerUi, swaggerSpec } = require('./swagger')
 // Create Express app
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(
 app.use(morgan("dev")); // Log HTTP requests
 
 
+app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 // Define API routes
 app.use("/api/test", require("./routes/testRoutes"));
@@ -38,14 +40,14 @@ app.use("/api/data", require("./routes/layerDataRoutes"));
 app.use("/api/data", require("./routes/ProductDataRoutes"));
 app.use("/api/shopify", require("./routes/shopifyRoutes"));
 app.use("/api/email", require('./routes/inviteRoutes'))
+
 userModel.createSuperAdminIfNeeded();
 
 app.get("*", (req, res) => {
   res.send("Hello I'm Haze backend")
 })
-
 // Set the port
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 8080;
 
 // Start the server
 app.listen(PORT, () => {

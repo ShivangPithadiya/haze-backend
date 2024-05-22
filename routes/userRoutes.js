@@ -1,20 +1,25 @@
 /* eslint-disable no-undef */
 const express = require("express");
 const {
-	addProfileDetails,
-	getUserProfileController,
-	getUserController,
-	updateUserController,
-	updatePasswordController,
-	resetPasswordController,
-	deleteProfileController,
-	getAllStoreOwnersController,
-	createSuperAdminManagerController,
-	getListSuperAdminManagerController,
-	updateSuperAdminManagerStatusController,
-	createStoreOwnerManagerController,
-	getListStoreOwnerManagerController,
-	updateStoreOwnerManagerStatusController
+  addProfileDetails,
+  getUserProfileController,
+  getUserController,
+  updateUserController,
+  getUserByShopDomain,
+  updateUserByShopDomain,
+  updatePasswordController,
+  resetPasswordController,
+  deleteProfileController,
+  getAllStoreOwnersController,
+  createSuperAdminManagerController,
+  getListSuperAdminManagerController,
+  updateSuperAdminManagerStatusController,
+  createStoreOwnerManagerController,
+  getListStoreOwnerManagerController,
+  updateStoreOwnerManagerStatusController,
+  updateStoreOwnerStatusController,
+  updateStoreOwnerStatusBySubscriptionController,
+  deleteStoreOwnerController,
 } = require("../controllers/userController");
 const authMiddleware = require("../middlewares/authMiddleware");
 const checkSuperAdmin = require('../middlewares/checkSuperAdmin')
@@ -45,6 +50,13 @@ router.get("/getuser/:id", getUserController);
 // UPDATE PROFILE
 router.put("/updateuser", updateUserController);
 
+//GET USER BY SHOP DOMAIN || GET
+router.get("/getuserbyshopdomain", getUserByShopDomain);
+
+//UPDATE USER BY SHOP DOMAIN || PUT
+router.put("/updateuserbyshopdomain", updateUserByShopDomain);
+
+
 //password update
 router.post("/updatepassword", updatePasswordController);
 
@@ -68,4 +80,11 @@ router.get('/store-owner-manager/getlist', getListStoreOwnerManagerController)
 router.put('/store-owner-manager/:userId', updateStoreOwnerManagerStatusController)
 
 
+//UPDATE STORE-OWNER STATUS
+router.put('/store-owner/:userId', updateStoreOwnerStatusController)
+//DELETE STORE-OWNER 
+router.delete('/store-owner/:userId', deleteStoreOwnerController)
+
+// UPDATE STORE-OWNER BY SUBSCRIPTION
+router.put('/store-owner/:userId', updateStoreOwnerStatusBySubscriptionController)
 module.exports = router;
