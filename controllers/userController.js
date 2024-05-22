@@ -254,7 +254,7 @@ const updateUserByShopDomain = async (req, res) => {
 
     if (planId || plan || planPrice || planPurchaseDate || status) {
       user.subscription = {
-        planId: `${planId}`,
+        planId: planId,
         plan: plan,
         planPrice: planPrice,
         planPurchaseDate: planPurchaseDate,
