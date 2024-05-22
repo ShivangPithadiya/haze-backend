@@ -44,6 +44,7 @@ const ProductDataSchema = new mongoose.Schema({
   ],
 
   status: { type: String, default: "active" },
+  created_by: { type: String, required: true },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
 });
